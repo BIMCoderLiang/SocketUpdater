@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UpdateLocation>
+  <Node FilePath="Default\">ex1.dll</Node>
+  <Node FilePath="Default\data\">ex2.xml</Node>
+  <Node FilePath="Default\icons\">ex3.ico</Node>
+  <Node FilePath="Fonts\">ex4.ttf</Node>
+  <Node FilePath="CommonApplicationData\BimProduct\2016\">ex5.dll</Node>
+</UpdateLocation>

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="TestTool.View.ClientRequestInfoPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestTool.View"
+             mc:Ignorable="d" Background="White"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <GroupBox Header="RequestInfo" Margin="5">
+                    <DataGrid Margin="5"
+                 CanUserSortColumns="False"
+                 SelectionMode="Single"
+                 AutoGenerateColumns="False"
+                 CanUserAddRows="False"
+                 CanUserDeleteRows="False"
+                 CanUserReorderColumns="False"
+                 AlternatingRowBackground="#EBEBEB" 
+                 Background="White"
+                 ItemsSource ="{Binding RequestInfos}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="Name"   Binding="{Binding RName}" />
+                            <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="Value"  Binding="{Binding RValue}"  />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <GroupBox Header="ReceiveInfo" Margin="5">
+                    <DataGrid Margin="5"
+                 CanUserSortColumns="False"
+                 SelectionMode="Single"
+                 AutoGenerateColumns="False"
+                 CanUserAddRows="False"
+                 CanUserDeleteRows="False"
+                 CanUserReorderColumns="False"
+                 AlternatingRowBackground="#EBEBEB" 
+                 Background="White"
+                 ItemsSource ="{Binding ReceiveInfos}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="Name"   Binding="{Binding RName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Width=".5*" IsReadOnly="True" Header="Value"  Binding="{Binding RValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button Content="Connect" 
+                HorizontalAlignment="Right" VerticalAlignment="Center"  
+                Width="73" Height="25" Margin="0,5,10,5"
+                Command="{Binding ConnectCmd}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
