@@ -110,6 +110,8 @@ Most of clients don't want to uninstall the old,then install the new one when a 
 
 The TestTool completed with DevExpress MVVM Mode.
 
+*   **Preparation: Please run Install.bat to start SocketService in UpdaterService before TestTool**
+
 *   **Step1: Generate Local Registry Info**
 
 ![image](https://github.com/airforce094/SocketUpdater/raw/master/Images/Step1.png)
