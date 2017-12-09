@@ -16,12 +16,12 @@ namespace UpdaterService
         private static string _serverPath;
         private static readonly ManualResetEvent AllDone = new ManualResetEvent(false);
 
-        public static void StartServer(string ipString, int port, int backlog)
+        public static void StartServer(int port, int backlog)
         {         
             _downloadChannelsCount = DownloadSetting.DownloadChannelsCount;
             try
             {
-                IPAddress ipAddress = IPAddress.Parse(ipString);
+                IPAddress ipAddress = IPAddress.Any;
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
                 Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 listener.Bind(localEndPoint);
@@ -34,9 +34,10 @@ namespace UpdaterService
                     AllDone.WaitOne();
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                var path = $"{AppDomain.CurrentDomain.BaseDirectory}\\RunLog.txt";
+                File.AppendAllText(path, ex.Message);
             }
         }
 

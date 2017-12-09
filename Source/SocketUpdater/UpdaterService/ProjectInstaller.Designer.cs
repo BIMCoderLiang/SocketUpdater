@@ -39,7 +39,7 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Bimcheng Updater";
+            this.serviceInstaller1.Description = "Airforce094_Updater";
             this.serviceInstaller1.DisplayName = "SocketService";
             this.serviceInstaller1.ServiceName = "SocketService";
             // 
