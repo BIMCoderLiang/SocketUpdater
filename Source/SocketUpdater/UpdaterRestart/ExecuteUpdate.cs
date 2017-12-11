@@ -40,7 +40,7 @@ namespace UpdaterRestart
             var unzipFiles = Directory.GetFiles(unzipFilesFolder);
             foreach (var file in unzipFiles)
             {
-                File.Move(file,Path.Combine(unzipFolder, Path.GetFileName(file)));
+                File.Copy(file, Path.Combine(unzipFolder, Path.GetFileName(file)),true);
             }
             Directory.Delete(unzipFilesFolder, true);
 
@@ -80,7 +80,7 @@ namespace UpdaterRestart
                 if (!isCovered) return;
                 try
                 {
-                    Directory.Delete(mainFolder);
+                    Directory.Delete(mainFolder,true);
                     RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "ProductVersion", latestVersion);
                     RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "InstallationDateTime",
                                                     DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
