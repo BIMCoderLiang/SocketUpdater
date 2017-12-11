@@ -17,7 +17,7 @@ namespace UpdaterShare.Utility
             if (string.IsNullOrEmpty(filePath)) return null;
             try
             {
-                using (FileStream filestream = new FileStream(filePath, FileMode.Open))
+                using (FileStream filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     MD5 md5 = new MD5CryptoServiceProvider();
                     byte[] file = md5.ComputeHash(filestream);
