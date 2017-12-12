@@ -57,7 +57,8 @@ namespace TestTool.ViewModel
                 var localSavePath = LinkInfos.FirstOrDefault(x => x.LName == "LocalSavePath").LValue;
                 var tempDirPath = LinkInfos.FirstOrDefault(x => x.LName == "TempDirPath").LValue;
 
-                var result = ClientSocket.StartClient(ClientInfo, DownloadInfo,clInfo, localSavePath, tempDirPath);
+                var clientSocket = new ClientSocket();
+                var result = clientSocket.StartClient(ClientInfo, DownloadInfo,clInfo, localSavePath, tempDirPath);
                 if (result)
                 {
                     MessageBox.Show("DownLoad File Success!");

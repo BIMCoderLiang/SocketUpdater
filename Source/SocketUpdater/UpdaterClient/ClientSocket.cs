@@ -13,17 +13,17 @@ using UpdaterShare.Utility;
 
 namespace UpdaterClient
 {
-    public static class ClientSocket
+    public class ClientSocket
     {
-        private static int _downloadChannelsCount;     
-        private static bool _isPacketsComplete;
-        private static long _packSize;
-        private static string _updateFileName;
-        private static readonly ManualResetEvent ReceiveDone = new ManualResetEvent(false);
-        private static readonly Dictionary<Socket, byte[]> TempReceivePacketDict = new Dictionary<Socket, byte[]>();
-        private static readonly Dictionary<int, byte[]> ResultPacketDict = new Dictionary<int, byte[]>();
+        private int _downloadChannelsCount;     
+        private bool _isPacketsComplete;
+        private long _packSize;
+        private string _updateFileName;
+        private readonly ManualResetEvent ReceiveDone = new ManualResetEvent(false);
+        private readonly Dictionary<Socket, byte[]> TempReceivePacketDict = new Dictionary<Socket, byte[]>();
+        private readonly Dictionary<int, byte[]> ResultPacketDict = new Dictionary<int, byte[]>();
 
-        public static bool StartClient(ClientBasicInfo basicInfo, DownloadFileInfo dlInfo, ClientLinkInfo clInfo,
+        public bool StartClient(ClientBasicInfo basicInfo, DownloadFileInfo dlInfo, ClientLinkInfo clInfo,
                                        string localSaveFolderPath, string tempFilesDir)
         {
             if (basicInfo == null || dlInfo == null || clInfo == null ||
@@ -96,7 +96,7 @@ namespace UpdaterClient
         }
 
         #region  Step1:Connection
-        private static void ConnectCallback(IAsyncResult ar)
+        private void ConnectCallback(IAsyncResult ar)
         {
             try
             {
@@ -114,13 +114,13 @@ namespace UpdaterClient
 
 
         #region Step2:Find Update File According to ProductName and Latest Version
-        private static void FindUpdateFileInfo(Socket client, int packetNumber)
+        private void FindUpdateFileInfo(Socket client, int packetNumber)
         {
             ComObject state = new ComObject { WorkSocket = client, PacketNumber = packetNumber };
             byte[] byteData = PacketUtils.PacketData(PacketUtils.ClientFindFileInfoTag(), Encoding.UTF8.GetBytes(_updateFileName));
             client.BeginSend(byteData, 0, byteData.Length, 0, FindUpdateFileCallback, state);
         }
-        private static void FindUpdateFileCallback(IAsyncResult ar)
+        private void FindUpdateFileCallback(IAsyncResult ar)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace UpdaterClient
                 
             }
         }
-        private static void FoundFileCallback(IAsyncResult ar)
+        private void FoundFileCallback(IAsyncResult ar)
         {
             try
             {
@@ -161,13 +161,13 @@ namespace UpdaterClient
 
 
         #region Step3:Request Packets of UpdateFile and Ready to Receive File
-        private static void SendFileStartPositionInfo(Socket client, int packetNumber, long packSize)
+        private void SendFileStartPositionInfo(Socket client, int packetNumber, long packSize)
         {
             ComObject state = new ComObject { WorkSocket = client };
             byte[] byteData = PacketUtils.PacketData(PacketUtils.ClientRequestFileTag(), BitConverter.GetBytes(packetNumber * packSize));
             client.BeginSend(byteData, 0, byteData.Length, 0, SendFileRequestCallback, state);
         }
-        private static void SendFileRequestCallback(IAsyncResult ar)
+        private void SendFileRequestCallback(IAsyncResult ar)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace UpdaterClient
         }
 
 
-        private static void ReceiveFileCallback(IAsyncResult ar)
+        private void ReceiveFileCallback(IAsyncResult ar)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace UpdaterClient
 
 
         #region Step4:Check Packets
-        private static bool CheckPackets(Dictionary<Socket, byte[]> dictionary, int downloadChannelsCount)
+        private bool CheckPackets(Dictionary<Socket, byte[]> dictionary, int downloadChannelsCount)
         {
             foreach (var socket in dictionary.Keys)
             {
@@ -248,7 +248,7 @@ namespace UpdaterClient
 
 
         #region Step5:Close Sockets
-        private static void CloseSockets(Dictionary<Socket, byte[]> tempReceivePacketDict)
+        private void CloseSockets(Dictionary<Socket, byte[]> tempReceivePacketDict)
         {
             foreach (var socket in tempReceivePacketDict.Keys)
             {
@@ -260,7 +260,7 @@ namespace UpdaterClient
 
 
         #region Step6:Generate Temp Flies
-        private static void GenerateTempFiles(Dictionary<int, byte[]> dictionary, int downloadChannelsCount, string tempFilesDir)
+        private void GenerateTempFiles(Dictionary<int, byte[]> dictionary, int downloadChannelsCount, string tempFilesDir)
         {
             dictionary = dictionary.OrderBy(x => x.Key).ToDictionary(x => x.Key, y => y.Value);
             foreach (var packetNumber in dictionary.Keys)
