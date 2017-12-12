@@ -28,12 +28,13 @@ namespace UpdaterClient.Utility
                 {
                     var shell = new WshShell();
                     var shortcut = (IWshShortcut)shell.CreateShortcut(Path.Combine(lnkTempDirPath, $"{lnkNameWithoutExt}.lnk"));
+                    shortcut.WorkingDirectory = Path.GetDirectoryName(vbScriptPath);
                     shortcut.TargetPath = vbScriptPath;
                     shortcut.WindowStyle = 7;
                     shortcut.Save();
                     var sourcePath = Path.Combine(lnkTempDirPath, $"{lnkNameWithoutExt}.lnk");
                     var destPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup) +$"\\{lnkNameWithoutExt}.lnk";
-                    File.Move(sourcePath, destPath);
+                    File.Copy(sourcePath, destPath);
                     return File.Exists(destPath);
                 }
             }
