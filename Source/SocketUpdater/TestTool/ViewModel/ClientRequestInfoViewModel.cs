@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -35,24 +36,25 @@ namespace TestTool.ViewModel
             ReceiveInfos.Clear();
 
             var registryPath = @"SOFTWARE\BIMProduct\BIMProduct2018\Revit2016";
+            var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
 
             ClientInfoModel r1 = new ClientInfoModel()
             {
                 RName = "ProductNameInEng",
-                RValue = RegistryUtils.ReadRegistryInfo(Registry.LocalMachine, registryPath, "ProductNameInEng")
+                RValue = RegistryUtils.ReadRegistryInfo(localMachineRegistry, registryPath, "ProductNameInEng")
             };
 
             ClientInfoModel r2 = new ClientInfoModel()
             {
                 RName = "RevitVersion",
-                RValue = RegistryUtils.ReadRegistryInfo(Registry.LocalMachine, registryPath, "RevitVersion")
+                RValue = RegistryUtils.ReadRegistryInfo(localMachineRegistry, registryPath, "RevitVersion")
             };
 
 
             ClientInfoModel r3 = new ClientInfoModel()
             {
                 RName = "ProductVersion",
-                RValue = RegistryUtils.ReadRegistryInfo(Registry.LocalMachine, registryPath, "ProductVersion")
+                RValue = RegistryUtils.ReadRegistryInfo(localMachineRegistry, registryPath, "ProductVersion")
             };
 
             RequestInfos.Add(r1);

@@ -42,7 +42,8 @@ namespace TestTool.ViewModel
             var mainFolder = Path.Combine(Path.GetTempPath(), "BIMProductUpdate");
             var updateInfoFile = Path.Combine(mainFolder, "updateinfo.xml");
             var registryPath = @"SOFTWARE\BIMProduct\BIMProduct2018\Revit2016";
-            RegistryKey rsg = Registry.LocalMachine.OpenSubKey(registryPath, false);
+            var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
+            RegistryKey rsg = localMachineRegistry.OpenSubKey(registryPath, false);
             if (rsg != null)
             {
                 foreach (var kv in rsg.GetValueNames())

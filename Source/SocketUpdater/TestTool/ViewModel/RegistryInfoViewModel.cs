@@ -45,9 +45,10 @@ namespace TestTool.ViewModel
             try
             {
                 var registryPath = @"SOFTWARE\BIMProduct\BIMProduct2018\Revit2016";
+                var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
                 foreach (var r in RegistryInfos)
                 {
-                    RegistryUtils.CreateRegistryInfo(Registry.LocalMachine, registryPath, r.RKey, r.RValue);
+                    RegistryUtils.CreateRegistryInfo(localMachineRegistry, registryPath, r.RKey, r.RValue);
                 }
                 MessageBox.Show("Create Registry Info Success!");
             }
@@ -60,7 +61,8 @@ namespace TestTool.ViewModel
 
         private void DeleteRegistryInfo()
         {
-            var result = RegistryUtils.DeleteRegistryInfo(Registry.LocalMachine, @"SOFTWARE\BIMProduct");
+            var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
+            var result = RegistryUtils.DeleteRegistryInfo(localMachineRegistry, @"SOFTWARE\BIMProduct");
             MessageBox.Show(result ? "Delete Registry Info Success!" : "Delete Registry Info Failed!");
         }
     }

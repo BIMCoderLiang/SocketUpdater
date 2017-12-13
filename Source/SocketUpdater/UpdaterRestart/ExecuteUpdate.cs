@@ -53,6 +53,7 @@ namespace UpdaterRestart
             var status = XmlUtils.GetValueByKey(updateInfoFile, "UpdateInfo", "Status");
 
             var registryPath = $"SOFTWARE\\BIMProduct\\BIMProduct2018\\{revitVersion}";
+            var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32);
             if (string.Equals(status, "Now", StringComparison.CurrentCultureIgnoreCase))
             {
                 string revitExePath = string.Empty;
@@ -63,8 +64,8 @@ namespace UpdaterRestart
                 try
                 {
                     Directory.Delete(mainFolder);
-                    RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "ProductVersion", latestVersion);
-                    RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "InstallationDateTime",
+                    RegistryUtils.WriteRegistryInfo(localMachineRegistry, registryPath, "ProductVersion", latestVersion);
+                    RegistryUtils.WriteRegistryInfo(localMachineRegistry, registryPath, "InstallationDateTime",
                                                     DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
                     ProcessUtils.StartProcess(revitExePath);
                 }
