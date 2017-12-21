@@ -85,7 +85,7 @@ namespace UpdaterRestart
                     RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "ProductVersion", latestVersion);
                     RegistryUtils.WriteRegistryInfo(Registry.LocalMachine, registryPath, "InstallationDateTime",
                                                     DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup)+  "Restart.lnk");
+                    File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.Startup)+  "\\Restart.lnk");
                 }
                 catch
                 {
