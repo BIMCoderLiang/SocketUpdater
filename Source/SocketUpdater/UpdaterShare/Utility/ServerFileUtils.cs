@@ -61,7 +61,9 @@ namespace UpdaterShare.Utility
                 var socketService = services.FirstOrDefault(x => String.Equals(x.ServiceName, "SocketService"));
                 if (socketService != null)
                 {
-                    var key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\" + serviceName);
+                    var localMachineRegistry = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, Environment.Is64BitOperatingSystem ?
+                                                                       RegistryView.Registry64 : RegistryView.Registry32);
+                    var key = localMachineRegistry.OpenSubKey(@"SYSTEM\CurrentControlSet\Services\" + serviceName);
                     if (key != null)
                     {
                         var serviceExePath = GetString(key.GetValue("ImagePath").ToString());
