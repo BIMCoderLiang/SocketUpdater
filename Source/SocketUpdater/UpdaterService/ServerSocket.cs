@@ -91,6 +91,7 @@ namespace UpdaterService
         {
             ComObject state = (ComObject)ar.AsyncState;
             Socket handler = state.WorkSocket;
+            handler.EndSend(ar);
             handler.BeginReceive(state.Buffer, 0, ComObject.BufferSize, 0, ReadFilePositionRequestCallback, state);
         }
 
