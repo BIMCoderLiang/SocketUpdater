@@ -50,12 +50,12 @@ namespace TestTool.ViewModel
             {
                 ClientLinkInfo clInfo = new ClientLinkInfo()
                 {
-                    IpString = LinkInfos.FirstOrDefault(x => x.LName == "IpString").LValue,
-                    Port = Convert.ToInt32(LinkInfos.FirstOrDefault(x => x.LName == "Port").LValue)
+                    IpString = LinkInfos.FirstOrDefault(x => string.Equals(x.LName,"IpString",StringComparison.OrdinalIgnoreCase))?.LValue,
+                    Port = Convert.ToInt32(LinkInfos.FirstOrDefault(x => string.Equals(x.LName, "Port", StringComparison.OrdinalIgnoreCase))?.LValue)
                 };
 
-                var localSavePath = LinkInfos.FirstOrDefault(x => x.LName == "LocalSavePath").LValue;
-                var tempDirPath = LinkInfos.FirstOrDefault(x => x.LName == "TempDirPath").LValue;
+                var localSavePath = LinkInfos.FirstOrDefault(x => string.Equals(x.LName,"LocalSavePath", StringComparison.OrdinalIgnoreCase))?.LValue;
+                var tempDirPath = LinkInfos.FirstOrDefault(x => string.Equals(x.LName,"TempDirPath", StringComparison.OrdinalIgnoreCase))?.LValue;
 
                 var clientSocket = new ClientSocket();
                 var result = clientSocket.StartClient(ClientInfo, DownloadInfo,clInfo, localSavePath, tempDirPath);

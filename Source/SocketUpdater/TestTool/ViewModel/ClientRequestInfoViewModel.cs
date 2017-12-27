@@ -69,9 +69,9 @@ namespace TestTool.ViewModel
             {
                 ClientBasicInfo cb = new ClientBasicInfo()
                 {
-                    ProductName = RequestInfos.FirstOrDefault(x => x.RName == "ProductNameInEng").RValue,
-                    RevitVersion = RequestInfos.FirstOrDefault(x => x.RName == "RevitVersion").RValue,
-                    CurrentProductVersion = RequestInfos.FirstOrDefault(x => x.RName == "ProductVersion").RValue
+                    ProductName = RequestInfos.FirstOrDefault(x => string.Equals(x.RName,"ProductNameInEng", StringComparison.OrdinalIgnoreCase))?.RValue,
+                    RevitVersion = RequestInfos.FirstOrDefault(x => string.Equals(x.RName, "RevitVersion", StringComparison.OrdinalIgnoreCase))?.RValue,
+                    CurrentProductVersion = RequestInfos.FirstOrDefault(x => string.Equals(x.RName,"ProductVersion", StringComparison.OrdinalIgnoreCase))?.RValue
                 };
                 ClientInfo = cb;
                 DownloadFileInfo df = new DownloadFileInfo();
