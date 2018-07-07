@@ -132,6 +132,6 @@ The TestTool completed with DevExpress MVVM Mode.
 
 ### Contact Me
 
-**E-mail: airforce094@sina.com** 
+**E-mail: bim.frankliang@foxmail.com** 
 
 **QQ:1223475343**
